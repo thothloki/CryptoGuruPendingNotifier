@@ -7,9 +7,8 @@ import datetime
 import requests
 import sys
 import os.path
-#import json
 import configparser
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QComboBox, QDesktopWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot, QTimer, Qt
 
@@ -18,8 +17,6 @@ class App (QWidget):
     def __init__(self):
         super().__init__()
         self.title = 'CryptoGuru Pending Notifier'
-        self.left = 1350
-        self.top = 50
         self.width = 360
         self.height = 100
         self.initUI()
@@ -31,7 +28,6 @@ class App (QWidget):
     
     def initUI(self):
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
         self.setWindowIcon(QIcon('cryptoguru.png'))
 
         self.poolSelect = QComboBox(self)
@@ -74,9 +70,18 @@ class App (QWidget):
         grid.addWidget(self.validDl, 4, 1)
         grid.addWidget(self.poolSelect, 5, 0)
         grid.addWidget(self.refreshTime, 5, 1)
-        
+
+        self.center()
         self.show()
         self.update()
+
+    def center(self):
+        frameGm = self.frameGeometry()
+        screen = QApplication.desktop().screenNumber(QApplication.desktop().cursor().pos())
+        centerPoint = QApplication.desktop().screenGeometry(screen).center()
+        frameGm.moveCenter(centerPoint)
+        self.move(frameGm.topLeft())
+
 
     def update(self):
         self.delay = 10000
