@@ -31,5 +31,7 @@ Future Edits on the List:
 - Add logging feature
 
 If you enjoy this app and feel like donating, that would be greatly appreciated:
+
 BURST: BURST-QCL8-NXGJ-L5WD-35KXA
+
 LTC: LQF2fTV42zvQEQZ4CGvVgfr1eTCVfHKedC
