@@ -36,8 +36,13 @@ If you enjoy this app and feel like donating, that would be greatly appreciated:
 
 
 BURST: BURST-QCL8-NXGJ-L5WD-35KXA
+
 LTC: LQF2fTV42zvQEQZ4CGvVgfr1eTCVfHKedC
+
 BTC: 1EbxyCkzxwrQJDQ5mxFqEf4WLg7ckybuYa
+
 XTL: Se3GdnGbpQNbnMhDwVQ6Pd2E3FEA2SYBzLqsqRu4NLZmRbwr6MCB9upNrGAetk2iq3gUB8oHa5mA5h2T3sXh4vzf2iV8owuJh
+
 ETN: etnkN25ezb96s7aRbqajd1EYjZCCNhLT47nDHsmyc3uhQABr4RzZ989ahxekNhvCgFKuE3WBtBXXBeWsKB13wLZJ5eEKT3LePp
+
 IPBC: bxc3eVkgTZZ4yiahRkGiqBjDzLC22AN3uWZzLfuhuRoENARFzAxCjrFekkzyEoDsARQUaG9JTLWCFT8L6jF9ngkD2ivDCxovL
