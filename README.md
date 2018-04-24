@@ -1,6 +1,8 @@
 # CryptoGuruPendingNotifier
 This is a desktop notifier app that allows you to see what your pending balance is for the CryptoGuru burst pools
 
+If you find value in this app, please consider donating (addresses below)
+
 This was written in Python 3 using PyQt5. 
 
 First, thanks to user spebern for his awesome API that allowed me to build this notifier
