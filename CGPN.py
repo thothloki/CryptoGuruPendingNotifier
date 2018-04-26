@@ -7,6 +7,7 @@ import datetime
 import requests
 import sys
 import os.path
+import webbrowser
 import configparser
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QComboBox, QDesktopWidget
 from PyQt5.QtGui import QIcon
@@ -38,6 +39,10 @@ class App (QWidget):
         self.textbox = QLineEdit(self)
         self.textbox.setPlaceholderText("Enter Burst Address or Numeric ID")
 
+        self.donate = QPushButton('Donate', self)
+        self.donate.setToolTip('If you like this app and want to thank the dev')
+        self.donate.clicked.connect(self.on_click)
+        
         self.pendingLabel = QLabel('Pending:')
         self.pendingAmount = QLabel('')
 
@@ -53,13 +58,17 @@ class App (QWidget):
         self.refreshTime = QLineEdit(self)
         self.refreshTime.setPlaceholderText('Refresh Time (Minutes)')
 
+        self.balLabel = QLabel('Wallet Balance:')
+        self.bal = QLabel('')
+
         file = 'settings.ini'
         if os.path.isfile(file):
             loadSettings(self)
                
         grid = QGridLayout()
         self.setLayout(grid)
-        grid.addWidget(self.textbox, 0,0,1,2)
+        grid.addWidget(self.textbox, 0,0)
+        grid.addWidget(self.donate, 0, 1)
         grid.addWidget(self.pendingLabel,1,0) 
         grid.addWidget(self.pendingAmount,1,1)
         grid.addWidget(self.effectiveCapacityLabel, 2, 0)
@@ -70,6 +79,8 @@ class App (QWidget):
         grid.addWidget(self.validDl, 4, 1)
         grid.addWidget(self.poolSelect, 5, 0)
         grid.addWidget(self.refreshTime, 5, 1)
+        grid.addWidget(self.balLabel, 6, 0)
+        grid.addWidget(self.bal, 6, 1)
 
         self.center()
         self.show()
@@ -82,7 +93,10 @@ class App (QWidget):
         frameGm.moveCenter(centerPoint)
         self.move(frameGm.topLeft())
 
-
+    @pyqtSlot()
+    def on_click(self):
+        webbrowser.open('https://github.com/thothloki/CryptoGuruPendingNotifier/blob/master/README.md')
+        
     def update(self):
         self.delay = 10000
         try:
@@ -97,7 +111,7 @@ class App (QWidget):
 
                 addy = convert(addy)
                 addy2 = int(addy)
-                       
+               
                 self.miner1 = (self.stub.GetMinerInfo(api_pb2.MinerRequest(ID=addy2)))
         
                 self.pend = (int(self.miner1.pending)/float(100000000))
@@ -110,10 +124,14 @@ class App (QWidget):
 
                 self.blocks = (self.miner1.nConf)
 
+                self.balance = getBal(addy)
+
                 self.pendingAmount.setText(str(self.pend) + ' Burst')
                 self.effectiveCapacity.setText(str(self.cap) + ' TB')
                 self.historicalShare.setText(str(self.historic) + '%')
                 self.validDl.setText(str(self.blocks))
+                self.bal.setText(str(self.balance) + ' BURST')
+                
 
                 self.timeD = (self.refreshTime.text())
                 if self.timeD != '' and self.timeD.isdigit():
@@ -140,6 +158,22 @@ def convert(addy):
     except:
         numeric = ''
         return numeric
+
+def getBal(addy):
+    burst = addy
+    try:
+        #need to finish!!!
+        URL = ("https://explore.burst.cryptoguru.org/api/v1/account/" + burst)
+        r = requests.get(url = URL)
+        data = r.json()
+        bar = ((data['data'])['balance'])
+        bal = (int(bar)/100000000)
+        print (bal)
+        return bal
+    except:
+        bal = ''
+        return bal
+
 
 def delayTime(minutes):
     timeA = str(minutes)
